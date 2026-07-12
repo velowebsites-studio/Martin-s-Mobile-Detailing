@@ -86,7 +86,10 @@
   header.scrolled{box-shadow:0 8px 24px rgba(22,35,63,.08);}
   header .wrap{display:flex; align-items:center; justify-content:space-between; padding-top:12px; padding-bottom:12px;}
   .logo{display:flex; align-items:center; gap:10px;}
-  .logo img{height:52px; width:auto;}
+  .logo img{height:44px; width:auto;}
+  .logo-text{font-family:var(--display); font-weight:700; font-size:15px; line-height:1.2; color:var(--navy); white-space:nowrap;}
+  @media(max-width:480px){ .logo-text{font-size:12px;} }
+  @media(max-width:360px){ .logo-text{display:none;} }
 
   .menu-wrap{position:relative;}
   .menu-btn{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; width:44px; height:44px; border:1px solid var(--line); border-radius:8px; background:var(--surface); cursor:pointer; transition:border-color .2s ease;}
@@ -212,6 +215,7 @@
   <div class="wrap">
     <a href="#" class="logo">
       <img src="images/logo-mark.png" alt="Martin's Mobile Detailing logo">
+      <span class="logo-text">Martin's Mobile Detailing</span>
     </a>
     <div class="menu-wrap">
       <button id="menuToggle" class="menu-btn" type="button" aria-expanded="false" aria-controls="dropdownMenu" aria-label="Open menu">

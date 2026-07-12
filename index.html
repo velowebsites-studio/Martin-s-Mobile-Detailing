@@ -87,10 +87,20 @@
   header .wrap{display:flex; align-items:center; justify-content:space-between; padding-top:12px; padding-bottom:12px;}
   .logo{display:flex; align-items:center; gap:10px;}
   .logo img{height:52px; width:auto;}
-  nav{display:flex; gap:32px;}
-  nav a{font-size:14px; font-weight:500; color:var(--steel); transition:color .2s ease;}
-  nav a:hover{color:var(--navy);}
-  @media(max-width:768px){ nav{display:none;} }
+
+  .menu-wrap{position:relative;}
+  .menu-btn{display:flex; flex-direction:column; align-items:center; justify-content:center; gap:5px; width:44px; height:44px; border:1px solid var(--line); border-radius:8px; background:var(--surface); cursor:pointer; transition:border-color .2s ease;}
+  .menu-btn:hover{border-color:var(--sky);}
+  .menu-bar{width:18px; height:2px; background:var(--navy); border-radius:2px; transition:transform .25s ease, opacity .25s ease;}
+  .menu-btn[aria-expanded="true"] .menu-bar:nth-child(1){transform:translateY(7px) rotate(45deg);}
+  .menu-btn[aria-expanded="true"] .menu-bar:nth-child(2){opacity:0;}
+  .menu-btn[aria-expanded="true"] .menu-bar:nth-child(3){transform:translateY(-7px) rotate(-45deg);}
+
+  .dropdown-menu{position:absolute; top:calc(100% + 12px); right:0; min-width:230px; background:var(--surface); border:1px solid var(--line); border-radius:12px; box-shadow:0 16px 40px rgba(22,35,63,.14); padding:10px; display:flex; flex-direction:column; gap:2px; opacity:0; visibility:hidden; transform:translateY(-8px); transition:opacity .2s ease, transform .2s ease, visibility .2s;}
+  .dropdown-menu.open{opacity:1; visibility:visible; transform:translateY(0);}
+  .dropdown-menu a{padding:11px 14px; border-radius:8px; font-size:14px; font-weight:500; color:var(--steel); transition:background .2s ease, color .2s ease;}
+  .dropdown-menu a:hover{background:var(--bg); color:var(--navy);}
+  .dropdown-menu .dropdown-phone{margin-top:6px; border-top:1px solid var(--line); padding-top:16px; font-weight:700; color:var(--sky);}
 
   .hero{border-bottom:1px solid var(--line); padding:0; position:relative; overflow:hidden;}
   .hero::before{content:''; position:absolute; top:-100px; right:-100px; width:400px; height:400px; border-radius:50%; background:radial-gradient(circle, rgba(43,166,216,.15), transparent 70%); animation:float 6s ease-in-out infinite;}
@@ -125,34 +135,31 @@
   @media(max-width:520px){ .svc-grid{grid-template-columns:1fr;} }
 
   .price-grid{margin-top:48px; display:grid; grid-template-columns:repeat(4,1fr); gap:20px;}
-  .ticket{position:relative; background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:26px; transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;}
+  .ticket{position:relative; display:flex; flex-direction:column; background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:26px; transition:transform .25s ease, border-color .25s ease, box-shadow .25s ease;}
   .ticket:hover{transform:translateY(-6px); box-shadow:0 16px 36px rgba(22,35,63,.1);}
   .ticket.popular{border-color:var(--sky); box-shadow:0 16px 36px rgba(43,166,216,.18);}
   .badge{position:absolute; top:-13px; left:50%; transform:translateX(-50%); background:var(--sky); color:#fff; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:.1em; padding:5px 14px; border-radius:20px;}
   .ticket h3{font-size:18px;}
   .ticket .price{margin-top:6px; font-family:var(--display); font-size:30px; font-weight:800; color:var(--navy2);}
   .ticket .price span{font-size:13px; font-weight:600; color:var(--steel);}
-  .ticket ul{margin-top:16px; padding-top:16px; border-top:1px solid var(--line); list-style:none;}
+  .ticket ul{flex:1 1 auto; margin-top:16px; padding-top:16px; border-top:1px solid var(--line); list-style:none;}
   .ticket li{font-size:12.5px; color:var(--steel); margin-bottom:7px; padding-left:16px; position:relative;}
   .ticket li::before{content:'✓'; position:absolute; left:0; color:var(--sky); font-weight:700;}
   .ticket .rates{margin-top:16px; padding-top:16px; border-top:1px dashed var(--line); display:flex; justify-content:space-between; font-size:11px; font-weight:600; color:var(--navy);}
-  .ticket .btn-outline{margin-top:18px; display:block; text-align:center; padding:10px; font-size:13px;}
+  .ticket .btn, .ticket .btn-outline{margin-top:18px; display:block; text-align:center; padding:10px; font-size:13px;}
   @media(max-width:900px){ .price-grid{grid-template-columns:1fr 1fr;} }
   @media(max-width:560px){ .price-grid{grid-template-columns:1fr;} }
 
-  .addon-grid{margin-top:40px; display:grid; grid-template-columns:repeat(4,1fr); gap:1px; background:var(--line); border:1px solid var(--line); border-radius:12px; overflow:hidden;}
-  .addon{background:var(--surface); padding:20px; font-size:13px;}
-  .addon .name{font-weight:600; color:var(--navy);}
-  .addon .price{margin-top:4px; color:var(--sky); font-weight:700;}
-  @media(max-width:900px){ .addon-grid{grid-template-columns:1fr 1fr;} }
-  @media(max-width:560px){ .addon-grid{grid-template-columns:1fr;} }
-  .notice{margin-top:32px; background:#EFF7FB; border:1px solid var(--line); border-radius:12px; padding:22px 26px; font-size:13px; color:var(--steel);}
+  .notice{margin-top:56px; background:#EFF7FB; border:1px solid var(--line); border-radius:12px; padding:22px 26px; font-size:13px; color:var(--steel);}
   .notice strong{color:var(--navy);}
 
-  .trust-grid{margin-top:40px; display:grid; grid-template-columns:1fr 1fr; gap:32px; align-items:center;}
+  .trust-grid{margin-top:40px; max-width:640px;}
   .trust-card{background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:32px;}
   .trust-card p{margin-top:12px; font-size:14px; color:var(--steel);}
-  @media(max-width:768px){ .trust-grid{grid-template-columns:1fr;} }
+
+  .review-card{margin-top:40px; max-width:640px; background:var(--surface); border:1px solid var(--line); border-radius:14px; padding:36px; text-align:center;}
+  .review-card p{margin-top:12px; font-size:14px; color:var(--steel); max-width:440px; margin-left:auto; margin-right:auto;}
+  .review-card .btn{margin-top:22px;}
 
   .steps{margin-top:48px; display:grid; grid-template-columns:repeat(4,1fr); gap:28px;}
   .step{border-top:3px solid var(--sky); padding-top:18px;}
@@ -183,7 +190,11 @@
   .foot-grid li a{transition:color .2s ease;}
   .foot-grid li a:hover{color:var(--sky);}
   .foot-bottom{border-top:1px solid rgba(255,255,255,.12); padding:18px 0; text-align:center; font-size:12px; color:#8FA0BC;}
-  @media(max-width:768px){ .foot-grid{grid-template-columns:1fr 1fr;} }
+  @media(max-width:768px){
+    .foot-grid{grid-template-columns:1fr; gap:36px; text-align:center; padding:44px 0;}
+    .foot-grid img{margin:0 auto;}
+    .foot-grid p{margin-left:auto; margin-right:auto;}
+  }
 </style>
 </head>
 <body>
@@ -193,13 +204,19 @@
     <a href="#" class="logo">
       <img src="images/logo-mark.png" alt="Martin's Mobile Detailing logo">
     </a>
-    <nav>
-      <a href="#services">Services</a>
-      <a href="#pricing">Pricing</a>
-      <a href="#gallery">Before &amp; After</a>
-      <a href="#quote">Contact</a>
-    </nav>
-    <a href="tel:+19188222787" class="btn-outline" style="padding:10px 20px; font-size:13px;">Call/Text (918) 822-2787</a>
+    <div class="menu-wrap">
+      <button id="menuToggle" class="menu-btn" type="button" aria-expanded="false" aria-controls="dropdownMenu" aria-label="Open menu">
+        <span class="menu-bar"></span><span class="menu-bar"></span><span class="menu-bar"></span>
+      </button>
+      <div id="dropdownMenu" class="dropdown-menu">
+        <a href="#services">Services</a>
+        <a href="#pricing">Pricing</a>
+        <a href="#gallery">Before &amp; After</a>
+        <a href="#reviews">Reviews</a>
+        <a href="#quote">Contact</a>
+        <a href="tel:+19188222787" class="dropdown-phone">Call/Text (918) 822-2787</a>
+      </div>
+    </div>
   </div>
 </header>
 
@@ -295,7 +312,7 @@
             <li>Door jambs cleaned</li>
           </ul>
           <div class="rates"><span>Cars: $85</span><span>SUV/Truck: $100+</span></div>
-          <a href="#quote" class="btn-outline">Book this</a>
+          <a href="#quote" class="btn-outline" data-package="Maintenance Detail">Book this</a>
         </div>
 
         <div class="ticket reveal d2">
@@ -310,7 +327,7 @@
             <li>UV protectant &amp; odor treatment</li>
           </ul>
           <div class="rates"><span>Cars: $150</span><span>SUV/Truck: $180+</span></div>
-          <a href="#quote" class="btn-outline">Book this</a>
+          <a href="#quote" class="btn-outline" data-package="Full Interior Detail">Book this</a>
         </div>
 
         <div class="ticket popular reveal d3">
@@ -326,7 +343,7 @@
             <li>Trim dressing</li>
           </ul>
           <div class="rates"><span>Cars: $200+</span><span>SUV/Truck: $230&ndash;250+</span></div>
-          <a href="#quote" class="btn">Book this</a>
+          <a href="#quote" class="btn" data-package="Full Detail">Book this</a>
         </div>
 
         <div class="ticket reveal d4">
@@ -341,26 +358,12 @@
             <li>Plastic trim restoration</li>
           </ul>
           <div class="rates"><span>Cars: $300+</span><span>SUV/Truck: $350+</span></div>
-          <a href="#quote" class="btn-outline">Book this</a>
+          <a href="#quote" class="btn-outline" data-package="Premium Detail">Book this</a>
         </div>
       </div>
 
-      <div class="reveal" style="margin-top:56px;">
-        <h3 style="font-size:18px;">Add-on services</h3>
-        <div class="addon-grid">
-          <div class="addon"><div class="name">Pet Hair Removal</div><div class="price">$25&ndash;$75</div></div>
-          <div class="addon"><div class="name">Seat Shampoo</div><div class="price">$25 per row</div></div>
-          <div class="addon"><div class="name">Excessive Trash</div><div class="price">$20+</div></div>
-          <div class="addon"><div class="name">Carpet Shampoo</div><div class="price">$40+</div></div>
-          <div class="addon"><div class="name">Engine Bay Detail</div><div class="price">$40</div></div>
-          <div class="addon"><div class="name">Headlight Restoration</div><div class="price">$60</div></div>
-          <div class="addon"><div class="name">Spray Ceramic Coating</div><div class="price">$75&ndash;$100</div></div>
-          <div class="addon"><div class="name">Odor Treatment</div><div class="price">Starting at $30</div></div>
-        </div>
-
-        <div class="notice">
-          <strong>Pricing notice:</strong> Prices listed are starting prices. Final pricing depends on vehicle size, interior condition, pet hair, excessive dirt or stains, and overall time required.
-        </div>
+      <div class="notice reveal">
+        <strong>Pricing notice:</strong> Prices listed are starting prices. Final pricing depends on vehicle size, interior condition, pet hair, excessive dirt or stains, and overall time required.
       </div>
     </div>
   </section>
@@ -368,20 +371,24 @@
   <section>
     <div class="wrap">
       <div class="eyebrow reveal">About Martin's</div>
-      <h2 class="reveal d1" style="margin-top:10px; font-size:34px;">Locally owned, just getting started</h2>
+      <h2 class="reveal d1" style="margin-top:10px; font-size:34px;">Locally owned and operated</h2>
       <div class="trust-grid">
         <div class="trust-card reveal d2">
           <div class="eyebrow" style="color:var(--navy2);">Why book with us</div>
           <p>We're a locally owned mobile detailing business proudly serving Tahlequah. Every vehicle gets full attention &mdash; no rushing, no shortcuts, and we come straight to your driveway so you don't have to lose your afternoon at a shop.</p>
         </div>
-        <div class="trust-card reveal d3">
-          <div class="eyebrow" style="color:var(--navy2);">Leave us a review</div>
-          <p>We're new to Tahlequah and building our reputation one vehicle at a time. If we detail your car, we'd love your feedback on Google or Facebook &mdash; it helps other folks in town find us.</p>
-          <div style="margin-top:16px; display:flex; gap:12px; flex-wrap:wrap;">
-            <a href="#" class="btn-outline" style="padding:9px 18px; font-size:12px;">Review on Google</a>
-            <a href="#" class="btn-outline" style="padding:9px 18px; font-size:12px;">Review on Facebook</a>
-          </div>
-        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="reviews" style="background:var(--surface);">
+    <div class="wrap">
+      <div class="eyebrow reveal">Reviews</div>
+      <h2 class="reveal d1" style="margin-top:10px; font-size:34px;">What clients are saying</h2>
+      <div class="review-card reveal d2">
+        <div class="eyebrow" style="color:var(--navy2);">Follow along on Facebook</div>
+        <p>We post recent jobs and updates on our Facebook page. Had us out to your place? We'd appreciate a review there to help other folks in Tahlequah find us.</p>
+        <a href="https://www.facebook.com/share/14o6U9qbmki/?mibextid=wwXIfr" class="btn" target="_blank" rel="noopener">View us on Facebook</a>
       </div>
     </div>
   </section>
@@ -449,8 +456,7 @@
       <div class="foot-h">Contact</div>
       <ul>
         <li><a href="tel:+19188222787">(918) 822-2787</a></li>
-        <li><a href="#">Facebook: Martin's Mobile Detailing</a></li>
-        <li><a href="#">Instagram: @martins.mobiledetailing</a></li>
+        <li><a href="https://www.facebook.com/share/14o6U9qbmki/?mibextid=wwXIfr" target="_blank" rel="noopener">Facebook: Martin's Mobile Detailing</a></li>
       </ul>
     </div>
   </div>
@@ -461,6 +467,32 @@
   const header = document.getElementById('siteHeader');
   window.addEventListener('scroll', () => {
     header.classList.toggle('scrolled', window.scrollY > 10);
+  });
+
+  const menuToggle = document.getElementById('menuToggle');
+  const dropdownMenu = document.getElementById('dropdownMenu');
+  menuToggle.addEventListener('click', () => {
+    const open = dropdownMenu.classList.toggle('open');
+    menuToggle.setAttribute('aria-expanded', open);
+  });
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.menu-wrap')) {
+      dropdownMenu.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    }
+  });
+  dropdownMenu.querySelectorAll('a').forEach((a) => {
+    a.addEventListener('click', () => {
+      dropdownMenu.classList.remove('open');
+      menuToggle.setAttribute('aria-expanded', 'false');
+    });
+  });
+
+  const packageSelect = document.querySelector('select[name="package"]');
+  document.querySelectorAll('.ticket [data-package]').forEach((btn) => {
+    btn.addEventListener('click', () => {
+      packageSelect.value = btn.dataset.package;
+    });
   });
 
   const revealEls = document.querySelectorAll('.reveal');
